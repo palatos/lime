@@ -13,9 +13,10 @@ setup(name='lime',
           'matplotlib',
           'numpy',
           'scipy',
-          'tqdm',
+          'tqdm >= 4.29.1',
           'scikit-learn>=0.18',
           'scikit-image>=0.12',
+          'pyDOE2==1.3.0'
       ],
       extras_require={
           'dev': ['pytest', 'flake8'],
