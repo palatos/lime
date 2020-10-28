@@ -15,6 +15,7 @@ from tqdm.auto import tqdm
 from . import lime_base
 from .wrappers.scikit_image import SegmentationAlgorithm
 
+from scipy.ndimage import gaussian_filter
 
 class ImageExplanation(object):
     def __init__(self, image, segments):
