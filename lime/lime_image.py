@@ -184,11 +184,12 @@ class LimeImageExplainer(object):
             segments = segmentation_fn(image)
         except ValueError as e:
             raise e
-        
-        if hide_color is 'blur':
+
             fudged_image = image.copy()
+
+        if hide_color is 'blur':
             fudged_image = gaussian_filter(fudged_image,sigma=3)
-            
+
         if hide_color is None:
             for x in np.unique(segments):
                 fudged_image[segments == x] = (
