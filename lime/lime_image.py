@@ -191,6 +191,9 @@ class LimeImageExplainer(object):
         if hide_color is 'blur':
             fudged_image = gaussian(fudged_image, sigma=4, multichannel=True, preserve_range = True)
 
+        elif hide_color is 'noise':
+            fudged_image = np.random.normal(255/2,255/9,size = fudged_image.shape).astype('int')
+
         elif hide_color is None:
             for x in np.unique(segments):
                 fudged_image[segments == x] = (
