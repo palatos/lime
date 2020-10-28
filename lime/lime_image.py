@@ -187,7 +187,7 @@ class LimeImageExplainer(object):
         
         if hide_color is 'blur':
         fudged_image = im.copy()
-        fudged_image = gaussian_filter(fudged_image,sigma=3)
+        fudged_image = gaussian_filter(fudged_image,sigma=2)
 
         fudged_image = image.copy()
         if hide_color is None:
