@@ -191,7 +191,7 @@ class LimeImageExplainer(object):
         if hide_color is 'blur':
             fudged_image = gaussian_filter(fudged_image,sigma=3)
 
-        if hide_color is None:
+        elif hide_color is None:
             for x in np.unique(segments):
                 fudged_image[segments == x] = (
                     np.mean(image[segments == x][:, 0]),
