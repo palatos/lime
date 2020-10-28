@@ -15,7 +15,7 @@ from tqdm.auto import tqdm
 from . import lime_base
 from .wrappers.scikit_image import SegmentationAlgorithm
 
-from scipy.ndimage import gaussian_filter
+from skimage.filters import gaussian
 
 class ImageExplanation(object):
     def __init__(self, image, segments):
@@ -189,7 +189,7 @@ class LimeImageExplainer(object):
         fudged_image = image.copy()
 
         if hide_color is 'blur':
-            fudged_image = gaussian_filter(fudged_image,sigma=3)
+            fudged_image = gaussian(fudged_image, sigma=4, multichannel=True, preserve_range = True)
 
         elif hide_color is None:
             for x in np.unique(segments):
@@ -197,6 +197,7 @@ class LimeImageExplainer(object):
                     np.mean(image[segments == x][:, 0]),
                     np.mean(image[segments == x][:, 1]),
                     np.mean(image[segments == x][:, 2]))
+
         else:
             fudged_image[:] = hide_color
 
