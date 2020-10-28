@@ -185,7 +185,7 @@ class LimeImageExplainer(object):
         except ValueError as e:
             raise e
 
-            fudged_image = image.copy()
+        fudged_image = image.copy()
 
         if hide_color is 'blur':
             fudged_image = gaussian_filter(fudged_image,sigma=3)
