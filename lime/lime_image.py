@@ -186,10 +186,10 @@ class LimeImageExplainer(object):
             raise e
         
         if hide_color is 'blur':
-        fudged_image = im.copy()
-        fudged_image = gaussian_filter(fudged_image,sigma=2)
+            fudged_image = im.copy()
+            fudged_image = gaussian_filter(fudged_image,sigma=2)
 
-        fudged_image = image.copy()
+            fudged_image = image.copy()
         if hide_color is None:
             for x in np.unique(segments):
                 fudged_image[segments == x] = (
