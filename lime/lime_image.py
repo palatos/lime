@@ -188,11 +188,29 @@ class LimeImageExplainer(object):
 
         fudged_image = image.copy()
 
-        if hide_color is 'blur':
+        if hide_color == 'blur':
             fudged_image = gaussian(fudged_image, sigma=4, multichannel=True, preserve_range = True)
 
-        elif hide_color is 'noise':
+        elif hide_color == 'noise':
             fudged_image = np.random.normal(255/2,255/9,size = fudged_image.shape).astype('int')
+
+        elif hide_color == 'noise_bw':
+            fudged_image = np.random.normal(255/2,255/5,size = (fudged_image.shape[:2])).astype('int')
+            fudged_image = np.stack((fudged_image,)*3, axis=-1)
+
+        elif hide_color == 'noise_sprinkle':
+            percentage = 0.5
+            dims = int(fudged_image.size/3)
+            halfdim = np.ceil(percentage*(dims)).astype(int)
+            mask = np.hstack((np.zeros(dims-halfdim),np.ones(halfdim)))
+
+            noise = np.random.normal(255/2,255/5,size = (fudged_image.shape[:2])).astype('int')
+            noise = np.stack((noise,)*3, axis=-1)
+
+            np.random.shuffle(mask)
+            mask = mask.reshape(fudged_image.shape[:2]).astype('bool')
+
+            fudged_image[mask] = noise[mask]
 
         elif hide_color is None:
             for x in np.unique(segments):
